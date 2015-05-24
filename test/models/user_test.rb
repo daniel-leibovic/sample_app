@@ -40,7 +40,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "email validation should reject invalid addresses" do
-    invalid_addresses = %w[user@example,com user_at_foo.org 
+    invalid_addresses = %w[foo@bar..com user@example,com user_at_foo.org 
                             user.name@example. foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
@@ -58,7 +58,7 @@ class UserTest < ActiveSupport::TestCase
   test "email addresses should be saved as downcase" do
     @user.email = "UP@down.CoM"
     @user.save
-    assert @user.email == @user.email.downcase
+    assert_equal @user.email, @user.email.downcase
   end
 
   test "password should be present (nonblank)" do
